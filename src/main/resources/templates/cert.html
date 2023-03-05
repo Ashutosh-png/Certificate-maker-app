@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .certificate {
+      width: 700px;
+      height: 800px;
+      background-color: #F1F1F1;
+      border: 10px solid #333;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    .header h1 {
+      font-size: 50px;
+      font-family: Arial, sans-serif;
+      color: #333;
+      text-transform: uppercase;
+    }
+
+    .body {
+      text-align: center;
+      padding: 50px;
+    }
+
+    .body h2 {
+      font-size: 30px;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    .body p {
+      font-size: 20px;
+      font-family: Arial, sans-serif;
+      color: #333;
+      
+    }
+
+    .footer {
+      text-align: center;
+      padding-top: 10px;
+      border-top: 1px solid #333;
+    }
+
+    .footer p {
+      font-size: 20px;
+      font-family: Arial, sans-serif;
+      color: #333;
+      padding-top: 20px;
+    }
+    .download-button {
+      background-color: #4CAF50;
+      /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.9/jspdf.plugin.autotable.min.js"></script>
+
+
+</head>
+
+<body>
+    
+
+  <div class="certificate">
+      <div th:each="user : ${user}">
+
+    <div th:each="user : ${user}">
+    <div class="header">
+      <h1>Certificate of Achievement</h1>
+    </div>
+    <div class="body">
+      <h2>Awarded to</h2>
+      <p id="name"><span th:text="${user.name}"></span></p>
+      <p>For outstanding performance in </p>
+      <div>
+        <p>.... <span th:text="${user.position}"></span>....</p>
+      </div>
+      <div>
+        <p>Address: <span th:text="${user.address}"></span></p>
+      </div>
+    </div>
+    <div class="footer">
+      <p>Signed,</p>
+      <p>The Management</p>
+    </div>
+  </div>
+  </div>
+  </div>
+  <a href="/home/deleteCert"><button>delete</button></a>
+  <button class="download-button" onclick="downloadPDF()">Download as PDF</button>  
+  <script>
+    function downloadPDF() {
+      var pdf = new jsPDF();
+      pdf.addHTML(document.body, function () {
+        pdf.save("home-page.pdf");
+      });
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        var name = document.getElementById("name").textContent;
+        document.getElementsByClassName("certificate")[0].style.backgroundColor = name;
+      });
+  </script>
+</body>
+
+</html>
